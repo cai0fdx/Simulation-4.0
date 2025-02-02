@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class Main {
 
@@ -8,6 +7,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException { 
 
+        while(true){
         solicitation pedido = new solicitation();
        solicitation.order(true);
 
@@ -16,9 +16,8 @@ public class Main {
 
         Sensores.sensores();
         DB.inserirSensoresNoBanco(false, false, false, false, false);
-
-     Scanner scan;
-     Thread.sleep(2000);
+        Thread.sleep(2000);
+        }
 
        
     }
