@@ -3,7 +3,14 @@ import java.util.Scanner;
 
 public class Sensores {
 
-    public static void sensores() {
+    private static boolean sensor1 = false;
+    private static boolean sensor2 = false;
+    private static boolean sensor3 = false;
+    private static boolean sensor4 = false;
+    private static boolean sensor5 = false;
+
+
+    public static void sensores() throws InterruptedException {
         // Lógica para obter os valores dos sensores
         Scanner scan = new Scanner(System.in);
         
@@ -12,11 +19,7 @@ public class Sensores {
         int item4 = 0;
         int item5 = 0;
 
-        boolean sensor1 = false;
-        boolean sensor2 = false;
-        boolean sensor3 = false;
-        boolean sensor4 = false;
-        boolean sensor5 = false;
+       
 
         System.out.println("Por favor, siga a ordem dos itens abaixo:\n1-Item 1\n2-Item 2\n3-Item 3\n4-Item 4\n5-Item 5\n->");
         int item = scan.nextInt();
@@ -51,7 +54,8 @@ public class Sensores {
 
         if (sensor1 && sensor2 && sensor3 && sensor4 && item5 == 5) {
             sensor5 = true;
-            System.out.println("\nSensor 5 true");
+            System.out.println("\nBraço robotico realizando a montagem...");
+            Thread.sleep(2000);
             System.out.println("Pedido concluído");
 
             // Envia os dados para o banco de dados
@@ -61,6 +65,30 @@ public class Sensores {
         }
         
         scan.close();
+
+       
+        
     }
-  
+    //Getters para sensores
+    public boolean getSensor1(){
+        return sensor1;
+    }
+
+    public boolean getSensor2(){
+        return sensor2;
+    }
+
+    public boolean getSensor3(){
+        return sensor3;
+    }
+
+    public boolean getSensor4(){
+        return sensor4;
+    }
+
+    public boolean getSensor5(){
+        return sensor5;
+    }
+
+
 }

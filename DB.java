@@ -4,7 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class DB {
+
     public static void inserirSensoresNoBanco(boolean sensor1, boolean sensor2, boolean sensor3, boolean sensor4, boolean sensor5) {
+        Sensores sensor = new Sensores();
+
         
         String url = "jdbc:mysql://localhost:3306/teste";
         String usuario = "root";  
@@ -18,18 +21,18 @@ public class DB {
             String sqlInsertSensores = "INSERT INTO sensores (sensor1, sensor2, sensor3, sensor4, sensor5) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sqlInsertSensores)) {
                 // Definir os valores para os sensores (0 = false, 1 = true)
-                stmt.setInt(1, sensor1 ? 1 : 0);
-                stmt.setInt(2, sensor2 ? 1 : 0);
-                stmt.setInt(3, sensor3 ? 1 : 0);
-                stmt.setInt(4, sensor4 ? 1 : 0);
-                stmt.setInt(5, sensor5 ? 1 : 0);
+                stmt.setInt(1, sensor.getSensor1() ? 1 : 0);
+                stmt.setInt(2, sensor.getSensor2() ? 1 : 0);
+                stmt.setInt(3, sensor.getSensor3() ? 1 : 0);
+                stmt.setInt(4, sensor.getSensor4() ? 1 : 0);
+                stmt.setInt(5, sensor.getSensor5() ? 1 : 0);
 
                 // Executar a inserção
                 stmt.executeUpdate();
                 System.out.println("Dados inseridos com sucesso na tabela Sensores");
 
                 // Verificar se todos os sensores estão em 1 (TRUE)
-                if (sensor1 && sensor2 && sensor3 && sensor4 && sensor5) {
+                if (sensor.getSensor1() && sensor.getSensor2() && sensor.getSensor3() && sensor.getSensor4() && sensor.getSensor5()) {
                     // Se todos os sensores estiverem em 1, incrementa o contador de martelos
                     incrementarContadorMartelos(conn);
                 }
@@ -38,9 +41,9 @@ public class DB {
             System.err.println("Erro ao conectar ou inserir no banco de dados: " + e.getMessage());
         }
     }
-
     // Método para incrementar o contador de martelos
     private static void incrementarContadorMartelos(Connection conn) {
+     
         String sqlSelect = "SELECT quantidade FROM contador_martelos WHERE id = 1";
         try (PreparedStatement stmt = conn.prepareStatement(sqlSelect);
              ResultSet rs = stmt.executeQuery()) {
@@ -51,9 +54,9 @@ public class DB {
                 // Incrementa o contador de martelos
                 String sqlUpdate = "UPDATE contador_martelos SET quantidade = ? WHERE id = 1";
                 try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
-                    stmtUpdate.setInt(1, quantidade + 2);
+                    stmtUpdate.setInt(1, quantidade + 1);
                     stmtUpdate.executeUpdate();
-                    System.out.println("Contador de martelos atualizado. Total: " + (quantidade + 2));
+                    System.out.println("Contador de martelos atualizado. Total: " + (quantidade + 1));
                 }
             } else {
                 // Se não houver registro, cria um novo contador
@@ -67,4 +70,5 @@ public class DB {
             System.err.println("Erro ao atualizar contador de martelos: " + e.getMessage());
         }
     }
+
 }

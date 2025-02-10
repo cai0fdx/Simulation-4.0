@@ -1,5 +1,6 @@
 public class solicitation {
     
+    //Simulação de um pedido recebido pela loja
     public static void order(boolean ask) throws InterruptedException{
 ask = true;
 if (ask = true){
@@ -13,6 +14,5 @@ if (ask = true){
     else {
         System.out.println("no request ");
     }
-
-    }
+}
 }
